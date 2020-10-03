@@ -2,8 +2,29 @@
 - name: Installing KafkaSource from KNative Eventing Contrib
   k8s:
     state: present
-    definition: "{{ item }}"
-  loop: "{{ lookup('file', 'files/kafkasource.yaml') | from_yaml_all | list }}"
+    definition: "{{ lookup('file', item ) | from_yaml }}"
+  loop:
+  - ./files/namespace.yaml
+  - ./files/serviceaccount.yaml
+  - ./files/clusterrole-controller.yaml
+  - ./files/clusterrole-observer.yaml
+  - ./files/crb-controller.yaml
+  - ./files/crb-addressable-resolver.yaml
+  - ./files/crb-podspecable-binding.yaml
+  - ./files/crd-kafkabindings.yaml
+  - ./files/crd-kafkasources.yaml
+  - ./files/service-kafka-controller.yaml
+  - ./files/deployment-kafka-controller-manager.yaml
+  - ./files/service-kafka-source-webhook.yaml
+  - ./files/mwc-defaulting.yaml
+  - ./files/mwc-kafkabindings.yaml
+  - ./files/vwc-validation.yaml
+  - ./files/vwc-config.yaml
+  - ./files/secret-knative-sources.yaml
+  - ./files/cm-config-leader-election-kafka.yaml
+  - ./files/cm-config-logging.yaml
+  - ./files/cm-config-observability.yaml
+  - ./files/cm-config-tracing.yaml
 
 - name: KafkaSource complete
   debug:

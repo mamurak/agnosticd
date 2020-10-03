@@ -1,0 +1,20 @@
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: config.webhook.kafka.sources.knative.dev
+  labels:
+    serving.knative.dev/release: devel
+webhooks:
+- admissionReviewVersions:
+  - v1beta1
+  clientConfig:
+    service:
+      name: kafka-source-webhook
+      namespace: knative-sources
+  failurePolicy: Fail
+  name: config.webhook.kafka.sources.knative.dev
+  namespaceSelector:
+    matchExpressions:
+    - key: contrib.eventing.knative.dev/release
+      operator: Exists
