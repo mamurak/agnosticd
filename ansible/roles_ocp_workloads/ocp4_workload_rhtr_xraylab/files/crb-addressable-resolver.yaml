@@ -6,7 +6,8 @@ metadata:
   labels:
     contrib.eventing.knative.dev/release: "v0.17.2"
 subjects:
-- kind: ServiceAccount# Necessary for conversion webhook. These are copied from the serving
+- kind: ServiceAccount
+  # Necessary for conversion webhook. These are copied from the serving
   # TODO: Do we really need all these permissions?
   name: kafka-controller-manager
   namespace: knative-sources
