@@ -10,7 +10,7 @@
   k8s_info:
     api_version: "operators.coreos.com/v1alpha1"
     kind: ClusterServiceVersion
-    name: grafana-operator.v3.5.0
+    name: grafana-operator.v3.9.0
     namespace: "xraylab-{{ guid }}"
   register: grafana_operator_status
   retries: 30
@@ -22,19 +22,13 @@
   k8s_info:
     api_version: "operators.coreos.com/v1alpha1"
     kind: ClusterServiceVersion
-    name: grafana-operator.v3.5.0
+    name: grafana-operator.v3.9.0
     namespace: "xraylab-{{ guid }}"
   register: grafana_operator_status
   retries: 30
   delay: 5
   until: grafana_operator_status.resources[0].status.phase | default('') == 'Succeeded'
   ignore_errors: false
-
-- name: Patch Grafana operator
-  k8s:
-    definition: "{{ lookup('template', 'grafana-operator/patch.yaml.j2') }}"
-  vars:
-    namespace: "xraylab-{{ guid }}"
 
 - name: Get Grafana Prometheus info
   k8s_info:
